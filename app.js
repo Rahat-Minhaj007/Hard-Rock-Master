@@ -1,13 +1,17 @@
-const searchInput = () => {
+const searchInput = async() => {
     const input = document.getElementById("input").value;
     if (input == "") {
         alert("SORRY SIR, AT FIRST WRITE YOUR EXPECTED SONG NAME")
     }
     else {
         const url = `https://api.lyrics.ovh/suggest/${input}`;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => displaySongs(data.data));
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => displaySongs(data.data));
+
+        const res= await fetch(url);
+        const data= await res.json();
+        displaySongs(data.data);
     }
 
 }
@@ -46,13 +50,22 @@ const displaySongs = songs => {
     });
 }
 
-const getLyric = (artist,song)=>{
+// const getLyric = (artist,song)=>{
+//     const url = `https://api.lyrics.ovh/v1/${artist}/${song}`;
+//     // console.log(url);
+//         fetch(url)
+//       .then(res => res.json())
+//       .then(data=>displayLyric(data.lyrics));
+// }
+
+const getLyric = async (artist,song)=>{
     const url = `https://api.lyrics.ovh/v1/${artist}/${song}`;
     // console.log(url);
-    fetch(url)
-    .then(res => res.json())
-    .then(data => displayLyric(data.lyrics));
+        const res= await fetch(url);
+        const data= await res.json();
+        displayLyric(data.lyrics);
 }
+
 
 
 const displayLyric = lyric=>{
